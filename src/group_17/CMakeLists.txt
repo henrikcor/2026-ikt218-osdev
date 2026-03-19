@@ -15,7 +15,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(UiAOS LANGUAGES C CXX ASM_NASM)
 
 # Create a lock file to prevent parallel runs of CMake
-file(LOCK ${CMAKE_SOURCE_DIR} DIRECTORY GUARD FILE)
+#file(LOCK ${CMAKE_SOURCE_DIR} DIRECTORY GUARD FILE)
 
 ########################################
 # CMake: Import Plugins
@@ -58,8 +58,10 @@ set(OS_KERNEL_LINKER "${CMAKE_CURRENT_SOURCE_DIR}/src/arch/${OS_ARCH_TARGET}/lin
 
 # Add executable target for the kernel
 add_executable(uiaos-kernel 
-	# src/multiboot2.asm # TODO: Add multiboot2 support
+	src/multiboot2.asm
     src/kernel.c
+	src/arch/i386/gdt.asm
+	src/arch/i386/gdt.c
 )
 
 # Include directories for the kernel target
